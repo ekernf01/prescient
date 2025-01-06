@@ -1,4 +1,4 @@
- import argparse
+import argparse
 import prescient.simulate as traj
 from prescient.train.model import *
 import prescient.perturb as pert
@@ -24,7 +24,7 @@ def create_parser():
     parser.add_argument("--num_pcs", required=True, help="Number of PC's. Must match the number given to process_data.")
     parser.add_argument("--gpu", default=None, required=False)
     parser.add_argument("--celltype_subset", default=None, required=False, help="Randomly sample initial cells from a particular celltype defined in metadata.")
-    parser.add_argument("--tp_subset", type=int,  default=None, required=False, help="Randomly sample initial cells from a particular timepoint.")
+    parser.add_argument("--tp_subset", type=int, default=None, required=False, help="Randomly sample initial cells from a particular timepoint.")
     parser.add_argument("-o", "--out_path", required=True, default=None, help="Path to output directory.")
     return parser
 
