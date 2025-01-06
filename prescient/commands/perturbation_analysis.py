@@ -1,4 +1,4 @@
-import argparse
+ import argparse
 import prescient.simulate as traj
 from prescient.train.model import *
 import prescient.perturb as pert
@@ -24,7 +24,7 @@ def create_parser():
     parser.add_argument("--num_pcs", required=True, help="Number of PC's. Must match the number given to process_data.")
     parser.add_argument("--gpu", default=None, required=False)
     parser.add_argument("--celltype_subset", default=None, required=False, help="Randomly sample initial cells from a particular celltype defined in metadata.")
-    parser.add_argument("--tp_subset", type=int, default=None, required=False, help="Randomly sample initial cells from a particular timepoint.")
+    parser.add_argument("--tp_subset", type=int,  default=None, required=False, help="Randomly sample initial cells from a particular timepoint.")
     parser.add_argument("-o", "--out_path", required=True, default=None, help="Path to output directory.")
     return parser
 
@@ -66,9 +66,9 @@ def main(args):
         num_steps = int(args.num_steps)
 
     # simulate forward
-    std_out       = traj.simulate(xp,         data_pt["tps"], data_pt["celltype"], data_pt["w"], net, config, int(args.num_sims), int(args.num_cells), num_steps, device, args.tp_subset, args.celltype_subset)
+    std_out       = traj.simulate(xp,          data_pt["tps"], data_pt["celltype"], data_pt["w"], net, config, int(args.num_sims), int(args.num_cells), num_steps, device, args.tp_subset, args.celltype_subset)
 
-    perturbed_out = traj.simulate(xp_perturb, data_pt["tps"], data_pt["celltype"], data_pt["w"], net, config, int(args.num_sims), int(args.num_cells), num_steps, device, args.tp_subset, args.celltype_subset)
+    perturbed_out = traj.simulate(xp_perturb,  data_pt["tps"], data_pt["celltype"], data_pt["w"], net, config, int(args.num_sims), int(args.num_cells), num_steps, device, args.tp_subset, args.celltype_subset)
 
     out_path = os.path.join(args.out_path, args.model_path.split("/")[-1], 'seed_{}_train.epoch_{}_num.sims_{}_num.cells_{}_num.steps_{}_subsets_{}_{}_perturb_simulation.pt'.format(args.seed, args.epoch, args.num_sims, args.num_cells, num_steps, args.tp_subset, args.celltype_subset))
     # save PRESCIENT perturbation file
